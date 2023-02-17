@@ -4,7 +4,7 @@ function App() {
   let c = Number(query.get("c")) || 3
 
   console.log(c)
-  let pages = ['1', '2', '3', '4']
+  let pages = 10
   return (
     <div className="App">
     <DisplayLi
@@ -16,13 +16,37 @@ function App() {
 }
 
 function DisplayLi({c, pages}) {
- return <ul>
-   {pages.map((page, index) => {
-     return <li key={index}>
-       <a>{page}</a>
-     </li>
-   })}
- </ul>
+  let prev = c - 1 >= 1 ? c - 1 : null
+  let next = c + 1 <= pages ? c + 1 : null
+return (
+    <ul>
+      {prev && (
+        <li>
+          <a href={"?p=" + prev}>Previous</a>
+        </li>
+      )}
+      {range(pages).map((page, index) => {
+        return (
+          <li key={index}>
+            <a href={"?p=" + page}> </a>
+          </li>
+        );
+      })}
+      {next && (
+        <li>
+          <a href={"?p=" + prev}>Next</a>
+        </li>
+      )}
+    </ul>
+  );
 }
+
+
+
+
+  function range(n) {
+    return [...Array(n).keys()]
+  }
+
 
 export default App;
